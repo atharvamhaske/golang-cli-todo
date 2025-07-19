@@ -25,3 +25,19 @@ func conceptsDemo () {
 
 	fmt.Println("New value of x:", x) // Prints 250
 }
+
+package main
+
+import "fmt"
+
+func main() {
+    city := "Pune"
+    cityPointer := &city
+
+    fmt.Println("Before change, city is:", city)
+
+    // Use the pointer to change the value at its address.
+    *cityPointer = "Mumbai"
+
+    fmt.Println("After change, city is:", city)
+}
