@@ -1,31 +1,36 @@
 package main
 
-import ( 
+import (
 	"errors"
-    "fmt" 
-	"time" )
+	"fmt"
+	"os"
+	"strconv"
+	"time"
+
+	"github.com/aquasecurity/table"
+)
 
 type Todo struct {
-	Title string
-	Completed bool
-	CreatedAt time.Time
+	Title       string
+	Completed   bool
+	CreatedAt   time.Time
 	CompletedAt *time.Time
 }
 
 type Todos []Todo
 
-func(todos *Todos) add(title string) {
+func (todos *Todos) add(title string) {
 	todo := Todo{
-		Title: title,
-		Completed: false,
-		CreatedAt: time.Now(),
+		Title:       title,
+		Completed:   false,
+		CreatedAt:   time.Now(),
 		CompletedAt: nil,
 	}
 
 	*todos = append(*todos, todo)
 }
 
-func (todos *Todos ) validateIndex(index int) error {
+func (todos *Todos) validateIndex(index int) error {
 	if index < 0 || index >= len(*todos) {
 		err := errors.New("Invalid Index")
 		fmt.Println(err)
@@ -46,10 +51,10 @@ func (todos *Todos) delete(index int) error {
 	return nil
 }
 
-func (todo *Todos) toggle(index int) error {
-	t :=(*todos)
+func (todos *Todos) toggle(index int) error {
+	t := (*todos)
 	if err := t.validateIndex(index); err != nil {
-	return err
+		return err
 	}
 
 	isCompleted := t[index].Completed
@@ -59,20 +64,38 @@ func (todo *Todos) toggle(index int) error {
 		t[index].CompletedAt = &completionTime
 	}
 
-	t[index].Completed = !isCompleted
+	t[index].Completed = !isCompleted //flipping value
 
-	return  nil
-} //we are making toggle method to change task status if completed and if not 
+	return nil
+}
 
-// here Todo is the type, Think of it as the blueprint for your list.
-//*Todo means apointer to a Todos list, a pointer is just memory address which tells the function where to find the original list.
-// also todos: this is just a variable name it is the name used inside the method to refer to that pointer
+func (todos *Todos) edit(index int, title string) error {
+	t := *todos
 
-// also t := (*todos) here todos is a pointer ( a memory address) and *todos is a value which we get at that address just like saying that we are dereferncing the pointer. this line gets the actual list of todos
+	if err := t.validateIndex(index); err != nil {
+		return err
+	}
+	t[index].Title = title
 
+	return nil
+}
 
-// isCompleted := t[index].Completed , t[index] gets the specific todo from the list.
+func (todos *Todos) print() {
+	table := table.New(os.Stdout)
+	table.SetRowLines(false)
+	table.SetHeaders("#", "Title", "Completed", "Created At", "Completed At")
+	for index, t := range *todos {
+		completed := "❌"
+		completedAt := ""
 
-// .Completed accesses its Completed field, which is either true or false.
+		if t.Completed {
+			completed = "✅"
+			if t.CompletedAt != nil {
+				completedAt = t.CompletedAt.Format(time.RFC1123)
+			}
+		}
 
-// This true or false value is stored in a temporary variable called isCompleted.
+		table.AddRow(strconv.Itoa(index), t.Title, completed, t.CreatedAt.Format(time.RFC1123), completedAt)
+	}
+	table.Render()
+}
