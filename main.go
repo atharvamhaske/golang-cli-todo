@@ -1,12 +1,13 @@
 package main
 
 func main() {
-	todos := Todos{}
-	todos.add("Complete Go")
-	todos.add("Complete Devops")
+todos := Todos{}
 
-	// Mark first todo as completed
-	todos.toggle(0)
+storage := NewStorage[Todos]("todos.json")
+storage.Load(&todos)
 
-	todos.print()
+cmdFlags := NewCmdFlags()
+cmdFlags.Execute(&todos)
+
+storage.Save(todos)
 }
