@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func slicesDemo() {
 	numbers := []int {10, 20, 30, 40, 50}
 	indexToDelete := 2 
 
@@ -21,5 +21,4 @@ func main() {
  }
 
 // alternate one liner method to do in go idiom
-
-number = append(numbers[indexToDelete], numbers[indexToDelete+1:]...)
+// numbers = append(numbers[:indexToDelete], numbers[indexToDelete+1:]...)

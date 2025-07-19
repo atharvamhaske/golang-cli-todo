@@ -1,5 +1,10 @@
 package main
 
+import ( 
+	"errors"
+    "fmt" 
+	"time" )
+
 type Todo struct {
 	Title string
 	Completed bool
@@ -14,7 +19,7 @@ func(todos *Todos) add(title string) {
 		Title: title,
 		Completed: false,
 		CreatedAt: time.Now(),
-		CompletedAt: nil
+		CompletedAt: nil,
 	}
 
 	*todos = append(*todos, todo)

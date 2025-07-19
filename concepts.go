@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main () {
+func conceptsDemo () {
 	x := 100
 	// a normal variable holding a value 
 
@@ -21,7 +21,7 @@ func main () {
     fmt.Println("Value by dereferencing p:", value) // Prints 100
 
 	// we can change the value at the address where p is pointing to.
-	*p := 250
+	*p = 250
 
 	fmt.Println("New value of x:", x) // Prints 250
 }
