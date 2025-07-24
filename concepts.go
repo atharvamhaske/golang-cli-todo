@@ -51,8 +51,7 @@ func pointerExample() {
 
 // This true or false value is stored in a temporary variable called isCompleted.
 
-
-//if else 
+//if else
 
 func pract() {
 	age := 19
@@ -61,5 +60,21 @@ func pract() {
 		fmt.Println("you are an adult now")
 	} else {
 		fmt.Println("you are not adult yet")
+	}
+}
+
+//switch
+
+func sw() {
+	day := "thursday"
+
+	switch day {
+	case "monday", "tuesday", "wednesday", "thursday", "friday":
+		fmt.Println("its week day")
+	case "saturday", "sunday":
+		fmt.Println("its the weekend")
+	default:
+		fmt.Println("not a valid day")
+
 	}
 }
