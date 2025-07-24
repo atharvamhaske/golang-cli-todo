@@ -40,7 +40,7 @@ func pointerExample() {
 //we are making toggle method to change task status if completed and if not
 
 // here Todo is the type, Think of it as the blueprint for your list.
-//*Todo means apointer to a Todos list, a pointer is just memory address which tells the function where to find the original list.
+//*Todo means a pointer to a Todos list, a pointer is just memory address which tells the function where to find the original list.
 // also todos: this is just a variable name it is the name used inside the method to refer to that pointer
 
 // also t := (*todos) here todos is a pointer ( a memory address) and *todos is a value which we get at that address just like saying that we are dereferncing the pointer. this line gets the actual list of todos
@@ -50,3 +50,16 @@ func pointerExample() {
 // .Completed accesses its Completed field, which is either true or false.
 
 // This true or false value is stored in a temporary variable called isCompleted.
+
+
+//if else 
+
+func pract() {
+	age := 19
+
+	if age >= 19 {
+		fmt.Println("you are an adult now")
+	} else {
+		fmt.Println("you are not adult yet")
+	}
+}

@@ -9,7 +9,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/gay", func(w http.ResponseWriter, r *http.Request){
-		fmt.Fprintln(w, "Hello you are gay, stfu")
+		fmt.Fprintf(w, "Hello you are gay, stfu and you are accessing %s and using user agent %s\n", r.URL.Path, r.Header.Get("User-Agent"))
 	})
 
 	mux.HandleFunc("/athx", func(w http.ResponseWriter, r *http.Request){
